@@ -1,0 +1,114 @@
+﻿@page "/"
+
+<PageTitle>Todo | Home</PageTitle>
+
+
+<div style="max-height: 80%;" class="flex w-9/12 flex-col gap-0 p-0 xs:h-5/6 xs:w-10/12 sm:w-9/12 md:w-2/3 lg:w-3/5 2xl:w-2/4">
+    
+    <div class="scrollbar flex flex-1 flex-col items-stretch gap-1 overflow-auto p-2 bg-grey-800 shadow-xl rounded-lg ring-1 ring-inset ring-grey-100">
+        <div class="flex place-content-center p-2 ">
+            <label class="self-center text-white">@SectionTitle</label>
+        </div>
+
+        <div style="display: @ItemCssClass;" class="scrollbar flex flex-1 flex-col items-stretch gap-1 overflow-auto p-2 xs:h-4/5 sm:h-3/4">
+            @if (IsLoadingItems)
+            {
+                <div class="content-center flex flex-1 place-content-center flex-col">
+                    <div class="flex flex-col items-center justify-center ">
+                        <div class="text-white h-8 w-8 mb-3 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
+                        </div>
+                        <label class="justify-center text-white">Loading...</label>
+                    </div>
+                </div>
+            }
+            else
+            {
+                if (ActiveItems.Count == 0)
+                {
+                    <div class="content-center flex flex-1 place-content-center flex-col">
+                        <div class="flex flex-col items-center justify-center">
+                            <label class="justify-center text-white">Nothing to show :(</label>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    if (!IsLoadingItems)
+                    {
+                        @foreach (var item in ActiveItems)
+                        {
+                            <ActiveTodoItemComponent Item="item" OnIsItemChecked="OnIsItemChecked"></ActiveTodoItemComponent>
+                        }
+                    }
+                }
+
+            }
+        </div>
+        <div style="display: @CategoryCssClass;" class="scrollbar flex flex-1 flex-col items-stretch gap-1 overflow-auto p-2 xs:h-4/5 sm:h-3/4">
+            @if (IsLoadingCategories)
+            {
+                <div class="content-center flex flex-1 place-content-center flex-col">
+                    <div class="flex flex-col items-center justify-center">
+                        <div class="text-white h-8 w-8 mb-3 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
+                        </div>
+                        <label class="justify-center text-white">Loading...</label>
+                    </div>
+                </div>
+            }
+            else
+            {
+                if (Categories.Count == 0)
+                {
+                    <div class="content-center flex flex-1 place-content-center flex-col">
+                        <div class="flex flex-col items-center justify-center">
+
+                            <label class="justify-center text-white">Nothing to show :(</label>
+
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    @foreach (var item in Categories)
+                    {
+                        <div @key="item">
+                            <SelectCategoryItemComponent Category="item" OnCategorySelected="OnCategorySelected"></SelectCategoryItemComponent>
+                        </div>
+                    }
+                }
+            }
+        </div>
+
+
+
+
+    </div>
+
+    
+    @*<div style="display: @ItemCssClass;" class="scrollbar flex flex-1 flex-col items-stretch gap-1 overflow-auto p-2 bg-grey-800 shadow-xl rounded-lg ring-1 ring-inset ring-grey-100">
+       
+    </div>
+
+    <div style="display: @CategoryCssClass;" class="scrollbar flex flex-1 flex-col items-stretch gap-1 overflow-auto p-2 bg-grey-800 shadow-xl rounded-lg ring-1 ring-inset ring-grey-100">
+           
+    </div>*@
+
+    <div class="flex flex-col mt-2 gap-0.5">
+        <div class="flex h-10 gap-0">
+            <input type="text" placeholder="Title" @bind-value="NewTodoItem.Title" class="flex-auto bg-grey-500 selection:bg-grey-800 selection:text-text-grey-100 transition active:bg-grey-600 focus:bg-grey-600 rounded-tl-lg placeholder:text-text-grey-700 text-white px-2 outline-0" />
+            <button style="background-color: @SelectedCategory.Color" @onclick="ToggleView" class="flex rounded-tr-lg">
+                <div class="flex flex-col -space-y-1 self-center px-2 xs:text-xs sm:text-sm">
+                    <span class="font-bold text-gray-300"> Category </span>
+                    <span class="text-white"> @SelectedCategory.CategoryName </span>
+                </div>
+            </button>
+           
+        </div>
+        <div class="flex h-10 gap-0">
+            <input type="text" placeholder="Description" @bind-value="NewTodoItem.Description" class="flex-1 selection:bg-grey-800 selection:text-text-grey-100 transition active:bg-grey-600 focus:bg-grey-600 bg-grey-500 placeholder:text-text-grey-700 text-white rounded-bl-lg p-2 outline-0" />
+            <button class="cursor-pointer rounded-br-lg bg-grey-100 px-3 text-white transition hover:bg-grey-300" @onclick="AddTodoItem">Add</button>
+        </div>
+    </div>
+
+</div>
+

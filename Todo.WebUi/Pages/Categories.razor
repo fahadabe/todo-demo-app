@@ -1,0 +1,70 @@
+﻿@page "/categories"
+<PageTitle>Todo | Categories</PageTitle>
+<div style="max-height: 80%;" class="flex w-9/12 flex-col gap-0 p-0 xs:h-5/6 xs:w-10/12 sm:w-9/12 md:w-2/3 lg:w-3/5 2xl:w-2/4">
+
+    <div class="flex  bg-grey-800 flex-col shadow-xl rounded-lg gap-0 p-2 xs:h-5/6 ring-1 ring-inset ring-grey-100">
+        <div class="flex place-content-center p-2">
+            <label class="selection:bg-grey-800 selection:text-text-grey-100 self-center text-white">Categories</label>
+        </div>
+
+
+        <div class="scrollbar flex flex-1 flex-col items-stretch gap-1 overflow-auto p-2 xs:h-4/5 sm:h-3/4">
+            @if (IsLoadingCategories)
+            {
+                <div class="content-center flex flex-1 place-content-center flex-col">
+                    <div class="flex flex-col items-center justify-center ">
+                        <div class="text-white h-8 w-8 mb-3 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                             role="status">
+                        </div>
+                        <label class="justify-center text-white">Loading...</label>
+                    </div>
+                </div>
+            }
+            else
+            {
+                if (CategoriesList.Count == 0)
+                {
+                    <div class="content-center flex flex-1 place-content-center flex-col">
+                        <div class="flex flex-col items-center justify-center">
+
+                            <label class="justify-center text-white">Nothing to show :(</label>
+
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    @foreach (var item in CategoriesList)
+                    {
+                        <div @key="item">
+                            <CategoryItemComponent Category="item"></CategoryItemComponent>
+                        </div>
+                    }
+                }
+
+            }
+        </div>
+
+        @*<div class="scrollbar flex flex-1 flex-col items-stretch gap-1 overflow-auto p-2 xs:h-4/5 sm:h-3/4">
+                @foreach (var item in CategoriesList)
+                {
+                    <CategoryItemComponent Category="item"></CategoryItemComponent>
+                }
+            </div>*@
+    
+    
+
+    
+</div>
+    <div class="mt-2 flex h-10 gap-0">
+        <input type="text" placeholder="Category Name" @bind-value="@NewCategory.CategoryName" class="flex-auto placeholder:text-text-grey-700 text-white rounded-l-lg selection:bg-grey-800 selection:text-text-grey-100 active:bg-grey-600 focus:bg-grey-600 bg-grey-500 px-2 outline-0" />
+
+
+        <button class="cursor-pointer px-3 text-white xs:text-xs sm:text-sm" style="background-color: @NewCategory.Color;" @onclick="GenerateRandomColor">Random Color</button>
+
+
+        <button class="cursor-pointer rounded-r-lg xs:text-xs sm:text-sm bg-grey-100 px-3 text-white transition hover:bg-grey-300" @onclick="AddNewCategory">Add Category</button>
+    </div>
+</div>
+
+
