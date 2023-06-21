@@ -1,6 +1,6 @@
 # Blazor Todo Web App
 
-This is a Blazor web app for managing tasks and organizing them by category. Add, complete, and categorize your todo items with ease.
+This is a Blazor web app for managing tasks. Add, complete, and view your todo items with ease.
 
 ## Features
 - Add new todo items
