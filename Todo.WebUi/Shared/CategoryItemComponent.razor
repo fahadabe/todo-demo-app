@@ -1,0 +1,22 @@
+﻿
+
+   @* <button type="button" @onclick="CategorySelected" class="text-primary bg-slate-200 hover:text-primary-600 focus:text-primary-600 active:text-primary-700 inline-block place-self-end self-center rounded-lg px-3 pb-2 pt-2.5 text-xs font-medium uppercase transition duration-150 ease-in-out hover:bg-neutral-100 focus:outline-none focus:ring-0">Select</button>*@
+
+
+
+
+
+<div class="flex flex-row">
+    <div class="flex rounded-l-lg p-2" style="background-color: @Category.Color"></div>
+    <div class="flex flex-1 flex-row rounded-r-lg bg-grey-500 hover:bg-grey-300 p-2 transition ease-in">
+        <label class="self-center text-white">@Category.CategoryName</label>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Category Category { get; set; }
+
+    
+    
+}

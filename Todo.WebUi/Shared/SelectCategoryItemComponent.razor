@@ -1,0 +1,30 @@
+﻿
+
+<div class="flex flex-row">
+    <div class="flex rounded-l-lg p-2" style="background-color: @Category.Color"></div>
+    <div class="bg-grey-500 hover:bg-grey-300 flex flex-1 flex-row rounded-r-lg p-2 transition ease-in">
+        
+        <div class="flex flex-1 flex-row">
+            <label class="self-center text-white">@Category.CategoryName</label>
+        </div>
+
+        <button type="button" @onclick="CategorySelected" class="text-text-grey-200 selection:bg-grey-800 selection:text-text-grey-100 hover:text-text-grey-900 inline-block place-self-end self-center rounded-lg px-3 pb-2 pt-2.5 text-xs font-medium uppercase transition duration-150 ease-in-out hover:bg-slate-200 focus:outline-none focus:ring-0">Select</button>
+    </div>
+
+</div>
+
+@code {
+    [Parameter]
+    public Category Category { get; set; }
+    [Parameter]
+    public EventCallback<Category> OnCategorySelected { get; set; }
+
+    public async Task CategorySelected(MouseEventArgs e)
+    {
+        if (Category is null)
+        {
+            return;
+        }
+        await OnCategorySelected.InvokeAsync(Category);
+    }
+}

@@ -1,0 +1,48 @@
+﻿@page "/completed"
+
+<PageTitle>Todo | Completed</PageTitle>
+
+<div style="max-height: 80%;" class="flex w-9/12 bg-grey-800 flex-col p-2 shadow-xl rounded-lg gap-0 p-0 xs:h-5/6 xs:w-10/12 sm:w-9/12 md:w-2/3 lg:w-3/5 2xl:w-2/4 ring-1 ring-inset ring-grey-100">
+    <div class="flex place-content-center p-2 ">
+        <label class="self-center text-white">Completed</label>
+    </div>
+    <div class="scrollbar flex flex-1 flex-col items-stretch gap-1 overflow-auto p-2 xs:h-4/5 sm:h-3/4">
+        @if (IsLoadingCompletedItems)
+        {
+            <div class="content-center flex flex-1 place-content-center flex-col">
+                <div class="flex flex-col items-center justify-center ">
+                    <div class="text-white h-8 w-8 mb-3 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                         role="status">
+                    </div>
+                    <label class="justify-center text-white">Loading...</label>
+                </div>
+            </div>
+        }
+        else
+        {
+            if (CompletedItems.Count == 0)
+            {
+                <div class="content-center flex flex-1 place-content-center flex-col">
+                    <div class="flex flex-col items-center justify-center">
+
+                        <label class="justify-center text-white">Nothing to show :(</label>
+
+                    </div>
+                </div>
+            }
+            else
+            {
+                @foreach (var item in CompletedItems)
+                {
+                    <div @key="item">
+                        <CompletedTodoItemComponent Item="item" OnRemoveItem="OnRemoveItem" />
+                    </div>
+                }
+            }
+            
+        }
+    </div>
+</div>
+
+
+

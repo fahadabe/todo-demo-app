@@ -1,0 +1,31 @@
+﻿
+<div class="flex flex-row">
+    <div class="flex rounded-l-lg bg-green-700 py-2" style="background-color: @Item.Category.Color">
+        <span style="writing-mode: vertical-rl;" class="text-text-grey-100 selection:bg-grey-800 selection:text-text-grey-100 -rotate-180 self-center pl-1 text-[0.75em] font-medium">@Item.Category.CategoryName</span>
+    </div>
+    <div class="bg-grey-500 hover:bg-grey-300 flex flex-1 flex-row rounded-r-lg p-2 transition ease-in">
+        <div class="flex flex-1 flex-col place-content-center items-stretch gap-0">
+            <div class="flex flex-row">
+                <label class="selection:bg-grey-800 selection:text-text-grey-100 font-medium text-white">@Item.Title</label>
+                <label class="text-text-grey-300 xs:hidden selection:bg-grey-800 selection:text-text-grey-100 sm:inline-block ml-2 self-center text-xs">@Item.CreatedAt</label>
+            </div>
+            <label class="text-text-grey-300 selection:bg-grey-800 selection:text-text-grey-100 text-sm">@Item.Description</label>
+        </div>
+
+        <button type="button" @onclick="ItemMarkedAsChecked" class="text-text-grey-200 selection:bg-grey-800 selection:text-text-grey-100 hover:text-text-grey-900 inline-block place-self-end self-center rounded-lg px-3 pb-2 pt-2.5 text-xs font-medium uppercase transition duration-150 ease-in-out hover:bg-slate-200 focus:outline-none focus:ring-0">Check</button>
+    </div>
+</div>
+
+@code{
+    [Parameter]
+    public TodoItem Item { get; set; }
+
+    [Parameter]
+    public EventCallback<TodoItem> OnIsItemChecked { get; set; }
+
+    public async Task ItemMarkedAsChecked(MouseEventArgs e)
+    {
+        Item.IsCompleted = true;
+        await OnIsItemChecked.InvokeAsync(Item);
+    }
+}
