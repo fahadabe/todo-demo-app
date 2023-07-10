@@ -6,6 +6,8 @@ builder.Services.AddServerSideBlazor();
 var supabaseURl = builder.Configuration.GetConnectionString("SupabaseURL") ?? "unknown";
 var supabaseKey = builder.Configuration.GetConnectionString("SupabaseKey") ?? "unknown";
 
+
+
 builder.Services.AddScoped<Supabase.Client>(
     provider => new Supabase.Client(
         supabaseURl,
@@ -20,6 +22,7 @@ builder.Services.AddScoped<Supabase.Client>(
 
 builder.Services.AddScoped<ITodoItemService, TodoItemService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+
 
 var app = builder.Build();
 
