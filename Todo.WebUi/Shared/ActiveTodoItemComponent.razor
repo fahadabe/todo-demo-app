@@ -7,7 +7,7 @@
         <div class="flex flex-1 flex-col place-content-center items-stretch gap-0">
             <div class="flex flex-row">
                 <label class="selection:bg-grey-800 selection:text-text-grey-100 font-medium text-white">@Item.Title</label>
-                <label class="text-text-grey-300 xs:hidden selection:bg-grey-800 selection:text-text-grey-100 sm:inline-block ml-2 self-center text-xs">@Item.CreatedAt</label>
+                <label class="text-text-grey-300 xs:hidden selection:bg-grey-800 selection:text-text-grey-100 sm:inline-block ml-2 self-center text-xs">@Item.CreatedAt.ToString("yyyy-MM-dd hh:mm:ss tt")</label>
             </div>
             <label class="text-text-grey-300 selection:bg-grey-800 selection:text-text-grey-100 text-sm">@Item.Description</label>
         </div>

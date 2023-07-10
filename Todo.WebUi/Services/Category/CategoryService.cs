@@ -1,6 +1,4 @@
-﻿
-
-namespace Todo.WebUi.Services;
+﻿namespace Todo.WebUi.Services;
 
 public class CategoryService : ICategoryService
 {
@@ -10,6 +8,7 @@ public class CategoryService : ICategoryService
     {
         supabaseClient = _supabaseClient;
     }
+
     public async Task<Category> AddCategory(Category category)
     {
         var result = await supabaseClient.From<Category>().Insert(category);
@@ -18,7 +17,14 @@ public class CategoryService : ICategoryService
 
     public async Task<IEnumerable<Category>> GetCategories()
     {
-        var result = await supabaseClient.From<Category>().Get();
-        return result.Models;
+        try
+        {
+            var result = await supabaseClient.From<Category>().Get();
+            return result.Models;
+        }
+        catch (Exception e)
+        {
+            return new List<Category>();
+        }
     }
 }

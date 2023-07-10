@@ -6,7 +6,7 @@
     <div class="flex flex-1 flex-col items-stretch gap-0 bg-grey-500 hover:bg-grey-300 p-2 transition ease-in place-content-center">
         <div class="flex flex-row">
             <label class="selection:bg-grey-800 selection:text-text-grey-100 font-medium text-white ">@Item.Title</label>
-            <label class="text-text-grey-300 selection:bg-grey-800 selection:text-text-grey-100 ml-2 self-center  text-xs text-gray-600 xs:hidden sm:inline-block">@Item.CompletedDate</label>
+            <label class="text-text-grey-300 selection:bg-grey-800 selection:text-text-grey-100 ml-2 self-center  text-xs text-gray-600 xs:hidden sm:inline-block">@Item.CompletedDate.ToString("yyyy-MM-dd hh:mm:ss tt")</label>
         </div>
         <label class="text-text-grey-300 selection:bg-grey-800 selection:text-text-grey-100 text-sm text-gray-500 ">@Item.Description</label>
     </div>

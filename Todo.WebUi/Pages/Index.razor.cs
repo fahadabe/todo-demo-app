@@ -1,17 +1,15 @@
-
-
 namespace Todo.WebUi.Pages;
 
 public partial class Index
 {
     [Inject]
     public ITodoItemService todoItemService { get; set; }
+
     [Inject]
     public ICategoryService categoryService { get; set; }
 
     public bool IsLoadingItems { get; set; } = true;
-    public bool IsLoadingCategories { get; set; } = true;    
-
+    public bool IsLoadingCategories { get; set; } = true;
 
     protected override async Task OnInitializedAsync()
     {
@@ -21,12 +19,10 @@ public partial class Index
         IsLoadingItems = true;
         IsLoadingCategories = true;
         IsCategoryViewVisible = true;
-        
-        
+
         var categories = (await categoryService.GetCategories()).ToList();
         var activeItems = (await todoItemService.GetActiveTodoItems()).ToList();
 
-        
         foreach (var activeItem in activeItems)
         {
             activeItem.Category = categories.FirstOrDefault(c => c.Id == activeItem.CategoryId);
@@ -39,6 +35,7 @@ public partial class Index
         IsLoadingCategories = false;
         StateHasChanged();
     }
+
     public List<TodoItem> ActiveItems { get; set; }
     public List<Category> Categories { get; set; }
     public Category SelectedCategory { get; set; } = new();
@@ -70,13 +67,13 @@ public partial class Index
             ItemCssClass = "none";
             SectionTitle = "Select Category";
         }
-
     }
 
     protected async void OnIsItemChecked(TodoItem item)
     {
         if (item.IsCompleted)
         {
+            item.CompletedDate = DateTime.Now;
             if (await todoItemService.UpdateTodoItem(item) is not null)
             {
                 ActiveItems.Remove(item);
@@ -91,13 +88,12 @@ public partial class Index
         {
             return;
         }
-        NewTodoItem.CategoryId =  SelectedCategory.Id;
+        NewTodoItem.CategoryId = SelectedCategory.Id;
 
         if (string.IsNullOrWhiteSpace(NewTodoItem.Title) || string.IsNullOrWhiteSpace(NewTodoItem.Description))
         {
             return;
         }
-
 
         var result = await todoItemService.AddTodoItem(NewTodoItem);
         if (result is not null)
@@ -109,7 +105,5 @@ public partial class Index
         // You can now use the result variable here
 
         NewTodoItem = new();
-
     }
 }
-
